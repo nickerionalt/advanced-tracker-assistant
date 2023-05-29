@@ -16,8 +16,12 @@ jobs:
       - uses: denoland/setup-deno@v1
       - name: Verify Deno installation
         run: deno --version 
-      - name: Run Deno
-        run: deno run --allow-net=api.notion.com --allow-env https://deno.land/x/automonth@v.1.2/src/main.ts
+      - name: Upload to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: "advanced-tracker-assistant"
+          entrypoint: "https://deno.land/x/automonth@v.1.2/src/main.ts" # 📝 Update the entrypoint
+          root: "."
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_PAGE: ${{ secrets.DATABASE_PAGE }}
